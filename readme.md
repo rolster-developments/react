@@ -120,6 +120,25 @@ function Catalog({ items }: { items: Item[] }) {
 }
 ```
 
+## Stores
+
+### CatalogNavigationStore
+
+Remembers the navigation state of a catalog (`keyword`, `page`, `scrollTop`) so it can be restored when the user comes back from a detail route. A route counts as a detail when its next segment after the catalog path is a UUID. The store is registered as a singleton in `@rolster/invertly`; call `reset()` when the session ends. `useCatalogNavigation` uses it under the hood.
+
+```ts
+import { invertly } from '@rolster/invertly';
+import { CatalogNavigationStore } from '@rolster/react';
+
+const store = invertly(CatalogNavigationStore);
+
+store.track(pathname); // call on every route change
+store.remember('/products', { keyword: 'shirt', page: 2, scrollTop: 480 });
+
+store.restorable('/products'); // state when coming back from /products/<uuid>
+store.reset(); // on logout
+```
+
 ## Helpers
 
 ### scrollToPosition

@@ -4,4 +4,5 @@ export * from './hooks/usePaginationNavigation';
 export * from './hooks/usePromise';
 export * from './hooks/useScreenDisplay';
 export * from './hooks/useSelectionSet';
+export * from './stores/CatalogNavigationStore';
 export * from './types';
