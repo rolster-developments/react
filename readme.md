@@ -20,6 +20,23 @@ You must install the `@rolster/types` package to define package data types, whic
 
 ## Hooks
 
+### usePromise
+
+Runs an async factory and exposes its outcome as an `Optional<{ value?, error? }>` from `@rolster/commons`. The state is empty while pending, and results arriving after unmount are ignored. Pass a dependency list to run the factory again; the state resets to empty on each run.
+
+```tsx
+import { usePromise } from '@rolster/react';
+
+function Profile({ userId }: { userId: string }) {
+  const state = usePromise(() => fetchUser(userId), [userId]);
+
+  return state.when(
+    ({ value, error }) => (error ? <Failure /> : <User user={value} />),
+    () => <Loading />
+  );
+}
+```
+
 ## Helpers
 
 ### scrollToPosition
