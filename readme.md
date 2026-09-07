@@ -18,6 +18,21 @@ You must install the `@rolster/types` package to define package data types, whic
 }
 ```
 
+## Hooks
+
+## Helpers
+
+### scrollToPosition
+
+Scrolls a container to the given position, honoring the user's `prefers-reduced-motion` setting. Does nothing when the element is `null` or `undefined`.
+
+```ts
+import { scrollToPosition } from '@rolster/react';
+
+scrollToPosition(containerRef.current); // top
+scrollToPosition(containerRef.current, 240);
+```
+
 ## Contributing
 
 - Daniel Andrés Castillo Pedroza :rocket:
