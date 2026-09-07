@@ -68,6 +68,35 @@ function OrderTimer({ createdAt }: { createdAt: Date }) {
 }
 ```
 
+### useSelectionSet
+
+Manages a multi-selection of values on top of `SelectionSet` from `@rolster/commons`. Accepts an optional equality function to match values by identity (for example by `uuid`). `toggleAll` selects the missing values, or unselects them all when every value is already selected; `refresh` prunes the selection so it only keeps values still present in the given list. Action callbacks are stable across renders.
+
+```tsx
+import { useSelectionSet } from '@rolster/react';
+
+function Catalog({ items }: { items: Item[] }) {
+  const selection = useSelectionSet<Item>([], (a, b) => a.uuid === b.uuid);
+
+  return (
+    <>
+      <Checkbox
+        checked={selection.containsAll(items)}
+        onChange={() => selection.toggleAll(items)}
+      />
+      {items.map((item) => (
+        <Row
+          key={item.uuid}
+          selected={selection.contains(item)}
+          onClick={() => selection.toggle(item)}
+        />
+      ))}
+      <Footer count={selection.size} onClear={selection.clear} />
+    </>
+  );
+}
+```
+
 ## Helpers
 
 ### scrollToPosition
