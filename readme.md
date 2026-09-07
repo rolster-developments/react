@@ -111,7 +111,9 @@ function Catalog({ items }: { items: Item[] }) {
 
   return (
     <div ref={containerRef} className="catalog">
-      {visibles.map((item) => <Row key={item.uuid} item={item} />)}
+      {visibles.map((item) => (
+        <Row key={item.uuid} item={item} />
+      ))}
       <RlsPagination suggestions={items} onPagination={onPagination} />
     </div>
   );
