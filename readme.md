@@ -37,6 +37,23 @@ function Profile({ userId }: { userId: string }) {
 }
 ```
 
+### useScreenDisplay
+
+Tracks whether the viewport is `mobile` or `web` and returns a `ScreenDisplayState` (a `SealedPartial` from `@rolster/commons`). The state instance only changes when the viewport crosses the breakpoint, so it is safe to use as a dependency. Default breakpoint is `640px`.
+
+```tsx
+import { useScreenDisplay } from '@rolster/react';
+
+function Layout() {
+  const display = useScreenDisplay(); // or useScreenDisplay(1024)
+
+  return display.when({
+    mobile: () => <MobileNavbar />,
+    web: () => <Sidebar />
+  });
+}
+```
+
 ## Helpers
 
 ### scrollToPosition
