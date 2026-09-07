@@ -24,7 +24,7 @@ function event<E>(
   suggestions: E[],
   lastPage = false
 ): PaginationEvent<E> {
-  return { currentPage, lastPage, suggestions };
+  return { currentPage, firstPage: currentPage === 1, lastPage, suggestions };
 }
 
 function comeBackFromDetail(path: string): void {

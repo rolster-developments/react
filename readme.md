@@ -99,7 +99,7 @@ function Catalog({ items }: { items: Item[] }) {
 
 ### usePaginationNavigation
 
-Connects a paginated list to its scroll container. Every `PaginationEvent` forwards its `suggestions` to your callback, and when the page changes the container scrolls back to top. The `PaginationEvent<E>` type is structural (`{ currentPage, lastPage, suggestions }`) and compatible with the one emitted by `@rolster/react-components`.
+Connects a paginated list to its scroll container. Every `PaginationEvent` forwards its `suggestions` to your callback, and when the page changes the container scrolls back to top. The `PaginationEvent<E>` type (`{ currentPage, firstPage, lastPage, suggestions }`) is the same shape emitted by `RlsPagination` in `@rolster/react-components`.
 
 ```tsx
 import { usePaginationNavigation } from '@rolster/react';

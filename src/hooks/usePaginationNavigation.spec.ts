@@ -14,7 +14,12 @@ function createContainer(): HTMLDivElement & {
 }
 
 function event<E>(currentPage: number, suggestions: E[]): PaginationEvent<E> {
-  return { currentPage, lastPage: false, suggestions };
+  return {
+    currentPage,
+    firstPage: currentPage === 1,
+    lastPage: false,
+    suggestions
+  };
 }
 
 describe('usePaginationNavigation', () => {
