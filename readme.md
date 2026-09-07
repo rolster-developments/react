@@ -120,6 +120,39 @@ function Catalog({ items }: { items: Item[] }) {
 }
 ```
 
+### useCatalogNavigation
+
+Extends `usePaginationNavigation` with memory: it stores the current `keyword`, `page` and `scrollTop` in `CatalogNavigationStore`, and restores page and scroll when the user comes back from a detail route of the same catalog. It is router agnostic: pass the current `pathname` from your router of choice and call `store.track(pathname)` on every route change (usually once, at the application shell).
+
+```tsx
+import { useCatalogNavigation } from '@rolster/react';
+import { useLocation } from 'react-router';
+
+function Catalog({ items, keyword }: { items: Item[]; keyword: string }) {
+  const { pathname } = useLocation();
+
+  const { containerRef, onPagination, onScroll, position, records } =
+    useCatalogNavigation<Item>({
+      pathname,
+      keyword,
+      onLastPage: () => repository.requestPagination()
+    });
+
+  return (
+    <div ref={containerRef} className="catalog" onScroll={onScroll}>
+      {records.map((item) => (
+        <Row key={item.uuid} item={item} />
+      ))}
+      <RlsPagination
+        suggestions={items}
+        position={position}
+        onPagination={onPagination}
+      />
+    </div>
+  );
+}
+```
+
 ## Stores
 
 ### CatalogNavigationStore

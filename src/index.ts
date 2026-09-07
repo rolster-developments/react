@@ -1,4 +1,5 @@
 export * from './helpers/scroll';
+export * from './hooks/useCatalogNavigation';
 export * from './hooks/useElapsedTime';
 export * from './hooks/usePaginationNavigation';
 export * from './hooks/usePromise';
