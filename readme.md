@@ -54,6 +54,20 @@ function Layout() {
 }
 ```
 
+### useElapsedTime
+
+Returns the time elapsed since a date as `{ minutes, chronometer, timestamp }`, where `chronometer` is formatted `HH:MM`. It refreshes every minute by default; pass a second argument to change the interval in milliseconds. Recalculates when the date changes.
+
+```tsx
+import { useElapsedTime } from '@rolster/react';
+
+function OrderTimer({ createdAt }: { createdAt: Date }) {
+  const { chronometer, minutes } = useElapsedTime(createdAt);
+
+  return <span title={`${minutes} min`}>{chronometer}</span>;
+}
+```
+
 ## Helpers
 
 ### scrollToPosition
