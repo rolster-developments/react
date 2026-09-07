@@ -97,6 +97,27 @@ function Catalog({ items }: { items: Item[] }) {
 }
 ```
 
+### usePaginationNavigation
+
+Connects a paginated list to its scroll container. Every `PaginationEvent` forwards its `suggestions` to your callback, and when the page changes the container scrolls back to top. The `PaginationEvent<E>` type is structural (`{ currentPage, lastPage, suggestions }`) and compatible with the one emitted by `@rolster/react-components`.
+
+```tsx
+import { usePaginationNavigation } from '@rolster/react';
+
+function Catalog({ items }: { items: Item[] }) {
+  const [visibles, setVisibles] = useState<Item[]>([]);
+
+  const { containerRef, onPagination } = usePaginationNavigation(setVisibles);
+
+  return (
+    <div ref={containerRef} className="catalog">
+      {visibles.map((item) => <Row key={item.uuid} item={item} />)}
+      <RlsPagination suggestions={items} onPagination={onPagination} />
+    </div>
+  );
+}
+```
+
 ## Helpers
 
 ### scrollToPosition
