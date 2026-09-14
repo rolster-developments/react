@@ -5,5 +5,7 @@ export * from './hooks/usePaginationNavigation';
 export * from './hooks/usePromise';
 export * from './hooks/useScreenDisplay';
 export * from './hooks/useSelectionSet';
+export * from './hooks/useStore';
 export * from './stores/CatalogNavigationStore';
+export * from './stores/StoreContext';
 export * from './types';
