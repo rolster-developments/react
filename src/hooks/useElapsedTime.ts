@@ -1,11 +1,13 @@
 import { Miliseconds } from '@rolster/dates';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface ElapsedTime {
   chronometer: string;
   minutes: number;
   timestamp: number;
 }
+
+export type ElapsedTimeUntil = (time: ElapsedTime) => boolean;
 
 function chronometerFormat(minutes: number): string {
   const hours = String(Math.floor(minutes / 60)).padStart(2, '0');
@@ -27,17 +29,34 @@ export function calculateElapsedTime(dateAt: Date): ElapsedTime {
 
 export function useElapsedTime(
   dateAt: Date,
-  interval: number = Miliseconds.Minute
+  interval: number = Miliseconds.Minute,
+  until?: ElapsedTimeUntil
 ): ElapsedTime {
   const [state, setState] = useState(() => calculateElapsedTime(dateAt));
+
+  const untilRef = useRef(until);
+
+  untilRef.current = until;
 
   const dateTime = dateAt.getTime();
 
   useEffect(() => {
-    setState(calculateElapsedTime(dateAt));
+    const initial = calculateElapsedTime(dateAt);
+
+    setState(initial);
+
+    if (untilRef.current?.(initial)) {
+      return;
+    }
 
     const intervalId = setInterval(() => {
-      setState(calculateElapsedTime(dateAt));
+      const current = calculateElapsedTime(dateAt);
+
+      setState(current);
+
+      if (untilRef.current?.(current)) {
+        clearInterval(intervalId);
+      }
     }, interval);
 
     return () => {

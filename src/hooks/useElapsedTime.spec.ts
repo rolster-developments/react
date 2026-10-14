@@ -68,6 +68,51 @@ describe('useElapsedTime', () => {
     expect(result.current.minutes).toBe(30);
   });
 
+  it('should stop refreshing once the until predicate is met', () => {
+    const { result } = renderHook(() =>
+      useElapsedTime(minutesAgo(8), 60000, ({ minutes }) => minutes >= 10)
+    );
+
+    act(() => {
+      vi.advanceTimersByTime(5 * 60000);
+    });
+
+    expect(result.current.minutes).toBe(10);
+    expect(result.current.chronometer).toBe('00:10');
+  });
+
+  it('should not start the interval when the until predicate is already met', () => {
+    const setSpy = vi.spyOn(globalThis, 'setInterval');
+
+    const { result } = renderHook(() =>
+      useElapsedTime(minutesAgo(20), 60000, ({ minutes }) => minutes >= 10)
+    );
+
+    expect(result.current.minutes).toBe(20);
+    expect(setSpy).not.toHaveBeenCalled();
+
+    setSpy.mockRestore();
+  });
+
+  it('should resume when the date changes after stopping', () => {
+    let dateAt = minutesAgo(20);
+
+    const { rerender, result } = renderHook(() =>
+      useElapsedTime(dateAt, 60000, ({ minutes }) => minutes >= 10)
+    );
+
+    expect(result.current.minutes).toBe(20);
+
+    dateAt = minutesAgo(0);
+    rerender();
+
+    act(() => {
+      vi.advanceTimersByTime(60000);
+    });
+
+    expect(result.current.minutes).toBe(1);
+  });
+
   it('should clear the interval on unmount', () => {
     const clearSpy = vi.spyOn(globalThis, 'clearInterval');
 

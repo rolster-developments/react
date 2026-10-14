@@ -59,6 +59,8 @@ function Layout() {
 
 Returns the time elapsed since a date as an `ElapsedTime` (`{ minutes, chronometer, timestamp }`), where `chronometer` is formatted `HH:MM`. It refreshes every minute by default; pass a second argument to change the interval in milliseconds. Recalculates when the date changes.
 
+A third argument, an `ElapsedTimeUntil` (`(time: ElapsedTime) => boolean`), stops the refresh: once it returns `true` the interval is cleared and the last value is kept, so a timer can freeze at a cap instead of ticking forever. It is checked again when the date changes.
+
 ```tsx
 import { useElapsedTime } from '@rolster/react';
 
@@ -66,6 +68,16 @@ function OrderTimer({ createdAt }: { createdAt: Date }) {
   const { chronometer, minutes } = useElapsedTime(createdAt);
 
   return <span title={`${minutes} min`}>{chronometer}</span>;
+}
+
+function KitchenTimer({ startedAt }: { startedAt: Date }) {
+  const { timestamp } = useElapsedTime(
+    startedAt,
+    1000,
+    ({ minutes }) => minutes >= 100 // stops ticking at 100 minutes
+  );
+
+  return <span>{Math.floor(timestamp / 1000)}s</span>;
 }
 ```
 
