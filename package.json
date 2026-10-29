@@ -1,6 +1,6 @@
 {
   "name": "@rolster/react",
-  "version": "19.1.0",
+  "version": "19.2.0",
   "type": "module",
   "description": "Package containing generic hooks and utilities for React projects.",
   "license": "MIT",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@rolster/rollup": "^3.0.0",
-    "@rolster/types": "^1.1.2",
+    "@rolster/types": "^1.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^4.2.1",
