@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@rolster/commons": "^4.3.0",
-    "@rolster/dates": "^4.1.7",
+    "@rolster/dates": "^4.2.0",
     "@rolster/invertly": "^4.4.0",
     "react": "^19.2.0"
   },
