@@ -1,7 +1,7 @@
-import { SelectionSet } from '@rolster/commons';
+import { SelectionEquals, SelectionSet } from '@rolster/commons';
 import { useCallback, useMemo, useState } from 'react';
 
-export type SelectionEquals<T> = (a: T, b: T) => boolean;
+export type { SelectionEquals };
 
 export interface SelectionSetController<T> {
   clear: () => void;
