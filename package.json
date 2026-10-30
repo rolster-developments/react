@@ -40,7 +40,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@rolster/commons": "^4.2.4",
+    "@rolster/commons": "^4.3.0",
     "@rolster/dates": "^4.1.7",
     "@rolster/invertly": "^4.3.2",
     "react": "^19.2.0"
